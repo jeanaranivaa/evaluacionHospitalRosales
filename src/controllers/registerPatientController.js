@@ -35,10 +35,9 @@ registerPatientController.register = async (req, res) => {
 
     const passwordHashed = await bcryptjs.hash(password, 10);
 
-    // Generar código de verificación
     const randomCode = crypto.randomBytes(3).toString("hex");
 
-    // Crear token temporal
+
     const token = jsonwebtoken.sign(
       {
         randomCode,
@@ -59,13 +58,12 @@ registerPatientController.register = async (req, res) => {
       { expiresIn: "15m" }
     );
 
-    // Guardar token en cookie
     res.cookie("registrationCookie", token, {
       maxAge: 15 * 60 * 1000,
       httpOnly: true,
     });
 
-    // Configuración del correo
+
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -103,7 +101,6 @@ registerPatientController.register = async (req, res) => {
   }
 };
 
-// VERIFICAR CÓDIGO
 registerPatientController.verifyCode = async (req, res) => {
   try {
     const { verificationCodeRequest } = req.body;
@@ -136,14 +133,12 @@ registerPatientController.verifyCode = async (req, res) => {
       timeOut,
     } = decoded;
 
-    // Comparar códigos
     if (verificationCodeRequest !== storedCode) {
       return res.status(400).json({
         message: "Invalid code",
       });
     }
 
-    // Crear paciente
     const newPatient = new patientModel({
       name,
       lastName,
@@ -161,7 +156,6 @@ registerPatientController.verifyCode = async (req, res) => {
 
     await newPatient.save();
 
-    // Eliminar cookie
     res.clearCookie("registrationCookie");
 
     return res.status(200).json({

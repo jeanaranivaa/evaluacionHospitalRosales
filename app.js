@@ -8,6 +8,7 @@ import clinicalRecordsRoutes from "./src/routes/clinicalRecords.js"
 import registerPatientsRoutes from "./src/routes/registerPatient.js"
 import loginPatientsRoutes from "./src/routes/loginPatient.js"
 import logoutRoutes from "./src/routes/logout.js"
+import recoveryPasswordRoutes from "./src/routes/recoveryPassword.js"
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use("/api/records", clinicalRecordsRoutes);
 app.use("/api/register", registerPatientsRoutes);
 app.use("/api/login", loginPatientsRoutes);
 app.use("/api/logout", logoutRoutes)
+app.use("/api/recovery", recoveryPasswordRoutes)
 
 
 export default app;

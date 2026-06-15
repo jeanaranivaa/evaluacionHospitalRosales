@@ -1,5 +1,6 @@
 import express from "express";
 import patientController from "../controllers/patientsController.js";
+import upload from "../utils/CloudinaryConfig.js";
 
 const router = express.Router();
 
@@ -8,7 +9,7 @@ router.route("/")
 
 router
 .route("/:id")
-.put(patientController.updatePatients)
+.put(upload.single("image"),patientController.updatePatients)
 .delete(patientController.deletePatient);
 
 export default router;
