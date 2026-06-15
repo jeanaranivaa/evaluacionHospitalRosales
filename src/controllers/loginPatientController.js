@@ -24,7 +24,7 @@ loginPatientController.login = async (req, res) => {
         const isMatch = await bcrypt.compare(password, patientFound.password);
 
         if (!isMatch) {
-            patientFound.loginAttempts = (patientFound.loginAttempts || 0 + 1)
+            patientFound.loginAttempts = (patientFound.loginAttempts || 0 ) + 1
 
             if (patientFound.loginAttempts >= 5) {
                 patientFound.timeOut = Date.now() + 5 * 60 * 1000;
