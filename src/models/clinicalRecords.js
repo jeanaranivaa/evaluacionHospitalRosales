@@ -6,7 +6,7 @@ Campos:
     medicalNotes
 */
 
-import mongoose, { Schema, model } from mongoose;
+import mongoose, { Schema, model } from "mongoose";
 
 const clinicalRecordsSchema = new Schema(
     {

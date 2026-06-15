@@ -9,7 +9,6 @@ import { config } from "../../config.js";
 
 const registerPatientController = {};
 
-// REGISTRAR PACIENTE
 registerPatientController.register = async (req, res) => {
   try {
     const {
@@ -26,7 +25,6 @@ registerPatientController.register = async (req, res) => {
       timeOut,
     } = req.body;
 
-    // Verificar si el paciente ya existe
     const existsPatient = await patientModel.findOne({ email });
 
     if (existsPatient) {
@@ -35,7 +33,6 @@ registerPatientController.register = async (req, res) => {
       });
     }
 
-    // Encriptar contraseña
     const passwordHashed = await bcryptjs.hash(password, 10);
 
     // Generar código de verificación
